@@ -1,5 +1,3 @@
-// Based off of Shawn Van Every's Live Web
-// http://itp.nyu.edu/~sve204/liveweb_fall2013/week3.html
 
 // Using express: http://expressjs.com/
 var express = require('express');
