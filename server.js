@@ -1,7 +1,7 @@
 var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-
+var userCount = 0;
 server.listen(3000);
 // WARNING: app.listen(80) will NOT work here!
 
@@ -17,8 +17,15 @@ io.on('connection', function (socket) {
   console.log("Connected",socket.id);
 
   socket.on('join', function (data) {
+    //send the number of user count to client dashboard
+    
     console.log("user joined with email : ", data.email);
     socket.join(data.email);
+    if(data.email === "server"){}
+    else{
+      io.sockets.in('server').emit('count', { count: ++userCount });
+    }
+
   });
 
   socket.on('send', function (data) {

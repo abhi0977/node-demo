@@ -18,7 +18,10 @@
 
         socket.emit('join', {email: 'server'});
 
-
+      //show the number of count to console on every new user join
+      socket.on("count", function(data) {
+          console.log(data.count + " Users joined");
+      });
 
 
 
