@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Sockets Example</title>
+    <script type="text/javascript">
+      console.log("lksdj");
+    </script>
+    <script type="text/javascript" src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script type="text/javascript">
+
+
+
+      var socket = io.connect('http://localhost:3000/');
+        
+      // socket.on('news', function (data) {
+      //     console.log(data);
+      //     socket.emit('my other event', { my: 'data' });
+      //   });
+
+        function join(){
+          var txt = document.getElementById('txt').value;
+          console.log(txt);
+          socket.emit('join', {email: txt});
+        }
+
+
+        function sendData(str){
+          console.log(str);
+          socket.emit('send', {email : document.getElementById('txt').value, ans: str});
+        }
+
+        socket.on("ans", function(data) {
+          console.log(data.ans);
+        });
+
+
+    </script>
+
+    <style>
+      body {
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+      <input type="text" id="txt">
+      <button onclick="join()">Join</button>
+<br>
+      <button onclick="sendData('A')">A</button>
+      <button onclick="sendData('B')">B</button>
+      <button onclick="sendData('C')">C</button>
+      <button onclick="sendData('D')">D</button>
+  </body>
+</html>
