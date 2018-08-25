@@ -9,9 +9,30 @@
     <script type="text/javascript" src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
     <script type="text/javascript">
 
-
-
-
+    
+      var qu = [
+      {
+          question : "What is 3 + 7?",
+          option : ["3","10","9","6"]
+        },
+        {
+          question : "What is 2 + 3?",
+          option : ["3","10","9","6"]
+        },
+        {
+          question : "What is 3 + 4?",
+          option : ["3","10","","6"]
+        },
+        {
+          question : "What is 1 + 7?",
+          option : ["1","8","9","6"]
+        },
+        {
+          question : "What is 9 + 2?",
+          option : ["3","11","9","6"]
+        },
+      ]
+      
 
 
       var socket = io.connect('http://localhost:3000/');
@@ -20,22 +41,18 @@
 
       //show the number of count to console on every new user join
       socket.on("count", function(data) {
-          console.log(data.count + " Users joined");
+        console.log(data.count + " Users joined");
+        console.log(data.users + data.count + " Users joined" );
       });
 
+  function change(txt) {
+    var x=document.getElementById("ol");
+    newLI = document.createElement("li");
 
-
-
-
-
-
-
-
-
-
-
-
-
+    newText = document.createTextNode(txt);
+    newLI.appendChild(newText);
+    x.appendChild(newLI);
+  }
 
 
 
@@ -50,6 +67,26 @@
     </style>
   </head>
   <body>
-    Hello
+    <button onclick="next()">Next</button>
+    <p id="txt"></p>
+    <ol type="A" id="ol">
+        
+    </ol>
   </body>
+  <script type="text/javascript">
+  var j = 0;
+  function next(){
+    startGame();
+  }
+  
+  function startGame(){
+          var question = qu[j];
+          var txt=document.getElementById("txt");
+          txt.innerHTML = question.question;
+          for(var i = 0 ; i < question.option.length ; i++){
+            change(question.option[i]);
+          }
+        }
+  
+  </script>
 </html>

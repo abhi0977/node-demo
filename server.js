@@ -2,8 +2,8 @@ var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var userCount = 0;
+var users = [];
 server.listen(3000);
-// WARNING: app.listen(80) will NOT work here!
 
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/public/index.html');
@@ -18,12 +18,12 @@ io.on('connection', function (socket) {
 
   socket.on('join', function (data) {
     //send the number of user count to client dashboard
-    
     console.log("user joined with email : ", data.email);
     socket.join(data.email);
     if(data.email === "server"){}
     else{
-      io.sockets.in('server').emit('count', { count: ++userCount });
+      users.push(data.email);
+      io.sockets.in('server').emit('count', { count: ++userCount , users : users });
     }
 
   });
